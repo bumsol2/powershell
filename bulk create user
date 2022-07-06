@@ -1,0 +1,55 @@
+#AD cmdlet 실행을 위한 Active Directory 모듈 가져오기
+Import-Module activedirectory  
+
+# c드라이브 밑에 test 폴더 생성
+#Users 변수에 test.csv의 데이터 저장
+$Users = Import-csv c:\test\test.csv  
+
+#CSV 파일의 사용자 세부 정보가 포함된 각 행을 반복합니다.
+foreach ($User in $Users) {
+    # 각 행의 각 필드에서 사용자 데이터 읽기
+    # 사용자 이름은 더 자주 사용되므로 입력을 방지하려면 변수에 저장하십시오.
+   $Username       = $User.SamAccountName
+
+    # 사용자가 이미 AD에 존재하는지 확인하십시오.
+    if (Get-ADUser -F {SamAccountName -eq $Username}) {
+         #If user does exist, give a warning
+         Write-Warning "A user account with username $Username already exist in Active Directory."
+    }
+    else {
+        # 사용자가 존재하지 않는 경우 새 사용자 계정 생성을 진행하십시오.
+
+        # 매개변수를 표시하기 위한 해시 테이블 생성
+        $userProps = @{
+            SamAccountName             = $User.SamAccountName                   
+            Path                       = $User.path      
+            GivenName                  = $User.GivenName 
+            Surname                    = $User.Surname
+            Initials                   = $User.Initials
+            Name                       = $User.Name
+            DisplayName                = $User.DisplayName
+            UserPrincipalName          = $user.UserPrincipalName 
+            Department                 = $User.Department
+            Description                = $User.Description
+            Office                     = $User.Office
+            OfficePhone                = $User.OfficePhone
+            EmailAddress               = $User.EmailAddress
+            StreetAddress              = $User.StreetAddress
+            POBox                      = $User.POBox
+            City                       = $User.City
+            State                      = $User.State
+            PostalCode                 = $User.PostalCode
+            Title                      = $User.Title
+            Company                    = $User.Company
+            AccountPassword            = (ConvertTo-SecureString $User.password -AsPlainText -Force) 
+            Enabled                    = $enable
+            ChangePasswordAtLogon      = $false
+        }   #end userprops   
+
+         New-ADUser @userProps
+       #  ""$User 사용자 계정이 생성되었습니다.".
+   
+
+    } #end else
+   
+}
