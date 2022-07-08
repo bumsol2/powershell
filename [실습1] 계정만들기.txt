@@ -1,0 +1,41 @@
+[사용자 계정 만들기 실습]
+- dsadd, dsmod, dsmove 명령을 사용해서 작업하시오.
+1. itbank.vm 도메인에 원더걸스 OU를 만드시오:dsadd 사용
+
+2. 원더걸스 OU안에 사용자를 생성하시오: dsadd 명령만 사용해서 만들기
+1) CN: 소희
+sam : wonder1
+upn : wonder1@itbank.vm
+pw : Pa$$w0rd
+계정사용
+2) CN : 선예
+sam : wonder2
+upn : wonder2@itbank.vm
+pw : Pa$$w0rd
+계정사용
+
+3. 소녀시대OU를 생성하시오:dsadd 사용
+
+
+4. 소녀시대 OU에 사용자를 각각 만들고(dsadd) 옵션구성(dsmod)을 하시오.
+1) CN: 태연	UPN : girl1@itbank.vm
+2) CN: 윤아	UPN : girl2@itbank.vm
+- 공통=> 만든 후 dsmod로 작업할것!
+pw : Pa$$w0rd
+계정사용
+
+
+5. 원더걸스OU와 소녀시대OU를 부서-수강생 OU로 이동
+
+
+
+
+
+
+
+
+
+
+
+
+
